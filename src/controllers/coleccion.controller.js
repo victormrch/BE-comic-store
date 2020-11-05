@@ -15,16 +15,23 @@ exports.findById = function (req, res) {
   });
 };
 
+exports.findAllComicAndSerieByIdColeccion = function (req, res) {
+  Coleccion.findAllComicAndSerieByIdColeccion(req.params.id, function (
+    err,
+    coleccion
+  ) {
+    if (err) res.send(err);
+    res.json(coleccion);
+  });
+};
 exports.create = function (req, res) {
   const new_coleccion = new Coleccion(req.body);
   //handles null error
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
-    res
-      .status(400)
-      .send({
-        error: true,
-        message: "Proporcione todos los campos obligatorios",
-      });
+    res.status(400).send({
+      error: true,
+      message: "Proporcione todos los campos obligatorios",
+    });
   } else {
     Coleccion.create(new_coleccion, function (err, coleccion) {
       if (err) res.send(err);
@@ -41,7 +48,10 @@ exports.update = function (req, res) {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     res
       .status(400)
-      .send({ error: true, message: "Proporcione todos los campos obligatorios" });
+      .send({
+        error: true,
+        message: "Proporcione todos los campos obligatorios",
+      });
   } else {
     Coleccion.update(req.params.id, new Coleccion(req.body), function (
       err,

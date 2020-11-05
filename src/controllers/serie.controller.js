@@ -15,6 +15,14 @@ exports.findById = function (req, res) {
     res.json(serie);
   });
 };
+
+exports.findAllComicByIdSerie = function (req, res) {
+  Serie.findAllComicByIdSerie(req.params.id, function (err, serie) {
+    if (err) res.send(err);
+    res.json(serie);
+  });
+};
+
 exports.create = function (req, res) {
   const new_serie = new Serie(req.body);
   //handles null error

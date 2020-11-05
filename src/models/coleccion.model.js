@@ -40,6 +40,20 @@ Coleccion.findAll = function (result) {
     }
   });
 };
+Coleccion.findAllComicAndSerieByIdColeccion = function (id, result) {
+  dbConn.query(
+    "SELECT * FROM coleccion inner join serie on coleccion.id = serie.coleccionId inner join comic on serie.id = comic.serieId where coleccion.id =?;",
+    id,
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
 Coleccion.update = function (id, coleccion, result) {
   dbConn.query(
     "UPDATE coleccion SET nombreColeccion=? WHERE id = ?",

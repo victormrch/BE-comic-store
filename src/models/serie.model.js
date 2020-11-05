@@ -39,6 +39,21 @@ Serie.findAll = function (result) {
     }
   });
 };
+Serie.findAllComicByIdSerie = function (id, result) {
+  dbConn.query(
+    "Select * from serie inner join comic on serie.id=comic.serieId where serie.id = ? ",
+    id,
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
 Serie.update = function (id, serie, result) {
   dbConn.query(
     "UPDATE serie SET nombreSerie=?,coleccionId=? WHERE id = ?",
