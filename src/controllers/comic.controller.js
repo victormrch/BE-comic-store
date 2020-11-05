@@ -1,22 +1,22 @@
 "use strict";
-const Serie = require("../models/serie.model");
+const Comic = require("../models/comic.model");
 
 exports.findAll = function (req, res) {
-  Serie.findAll(function (err, serie) {
+  Comic.findAll(function (err, comic) {
     console.log("controller");
     if (err) res.send(err);
-    console.log("res", serie);
-    res.send(serie);
+    console.log("res", comic);
+    res.send(comic);
   });
 };
 exports.findById = function (req, res) {
-  Serie.findById(req.params.id, function (err, serie) {
+  Comic.findById(req.params.id, function (err, comic) {
     if (err) res.send(err);
-    res.json(serie);
+    res.json(comic);
   });
 };
 exports.create = function (req, res) {
-  const new_serie = new Serie(req.body);
+  const new_comic = new Comic(req.body);
   //handles null error
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     res
@@ -26,11 +26,11 @@ exports.create = function (req, res) {
         message: "Proporcione todos los campos obligatorios",
       });
   } else {
-    Serie.create(new_serie, function (err, serie) {
+    Comic.create(new_comic, function (err, serie) {
       if (err) res.send(err);
       res.json({
         error: false,
-        message: "¡Serie creada corretamente!",
+        message: "Comic creado corretamente!",
         data: serie,
       });
     });
@@ -46,18 +46,18 @@ exports.update = function (req, res) {
         message: "Proporcione todos los campos obligatorios",
       });
   } else {
-    Serie.update(req.params.id, new Serie(req.body), function (err, serie) {
+    Comic.update(req.params.id, new Comic(req.body), function (err, comic) {
       if (err) res.send(err);
       res.json({
         error: false,
-        message: "¡Serie actualizada correctamente!",
+        message: "¡Comic actualizado correctamente!",
       });
     });
   }
 };
 exports.delete = function (req, res) {
-  Serie.delete(req.params.id, function (err, serie) {
+  Comic.delete(req.params.id, function (err, comic) {
     if (err) res.send(err);
-    res.json({ error: false, message: "¡Serie borrada correctamente!" });
+    res.json({ error: false, message: "¡Comic borrado correctamente!" });
   });
 };

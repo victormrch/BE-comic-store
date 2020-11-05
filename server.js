@@ -15,9 +15,13 @@ app.get('/', (req, res) => {
 // Require coleccion routes
 const coleccionRoutes = require('./src/routes/coleccion.routes')
 const serieRoutes = require('./src/routes/serie.routes')
+const comicRoutes = require('./src/routes/comic.routes')
+
 // using as middleware
 app.use('/api/v1/coleccion', coleccionRoutes)
 app.use('/api/v1/serie', serieRoutes)
+app.use('/api/v1/comic', comicRoutes)
+
 // listen for requests
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
